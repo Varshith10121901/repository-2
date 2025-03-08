@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pyscript Example</title>
+   <!-- link cdn file -->
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+<body>
+  <py-script>
+    
+    <!-- print cmd in python -->
+    print("welcome")
+
+  <!-- calculation in python -->
+    a = 5;
+    b =4;
+    sum = a+b;
+    print(sum);
+   
+  </py-script>
+</body>
+</html>
