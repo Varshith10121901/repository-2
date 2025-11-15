@@ -23,29 +23,29 @@ def create_styled_pdf(content, topic, filename):
     styles = getSampleStyleSheet()
 
     title_style = ParagraphStyle('CustomTitle', parent=styles['Heading1'], fontSize=28, 
-                                  textColor=colors.HexColor('#1a237e'), spaceAfter=30, 
+                                  textColor=colors.black, spaceAfter=30, 
                                   alignment=TA_CENTER, fontName='Helvetica-Bold', leading=34)
     
     subtitle_style = ParagraphStyle('CustomSubtitle', parent=styles['Heading2'], fontSize=16, 
-                                     textColor=colors.HexColor('#455a64'), spaceAfter=12, 
+                                     textColor=colors.black, spaceAfter=12, 
                                      spaceBefore=20, fontName='Helvetica-Bold', 
-                                     backColor=colors.HexColor('#e3f2fd'), leading=20)
+                                     backColor=colors.HexColor('#FFFDD2'), leading=20)
     
     body_style = ParagraphStyle('CustomBody', parent=styles['BodyText'], fontSize=12, 
-                                 textColor=colors.HexColor('#263238'), alignment=TA_JUSTIFY, 
+                                 textColor=colors.black, alignment=TA_JUSTIFY, 
                                  spaceAfter=14, spaceBefore=6, leading=18, fontName='Helvetica')
     
     info_style = ParagraphStyle('InfoStyle', parent=styles['Normal'], fontSize=10, 
-                                 textColor=colors.HexColor('#607d8b'), alignment=TA_CENTER, 
+                                 textColor=colors.HexColor('#333333'), alignment=TA_CENTER, 
                                  spaceAfter=30)
     
     footer_style = ParagraphStyle('FooterStyle', parent=styles['Normal'], fontSize=10, 
-                                   textColor=colors.white, alignment=TA_CENTER)
+                                   textColor=colors.black, alignment=TA_CENTER)
 
     title_table = Table([[Paragraph(f"✨ {topic.upper()} ✨", title_style)]], colWidths=[450])
     title_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#e8eaf6')),
-        ('BOX', (0, 0), (-1, -1), 2, colors.HexColor('#3f51b5')),
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#FCFBF4')),
+        ('BOX', (0, 0), (-1, -1), 2, colors.black),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('TOPPADDING', (0, 0), (-1, -1), 20),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 20),
@@ -57,8 +57,8 @@ def create_styled_pdf(content, topic, filename):
 
     line_table = Table([['', '']], colWidths=[225, 225])
     line_table.setStyle(TableStyle([
-        ('LINEABOVE', (0, 0), (0, 0), 3, colors.HexColor('#ff6f00')),
-        ('LINEABOVE', (1, 0), (1, 0), 3, colors.HexColor('#42a5f5')),
+        ('LINEABOVE', (0, 0), (0, 0), 3, colors.HexColor('#D4AF37')),
+        ('LINEABOVE', (1, 0), (1, 0), 3, colors.HexColor('#C9A961')),
     ]))
     elements.extend([line_table, Spacer(1, 24)])
 
@@ -84,8 +84,8 @@ def create_styled_pdf(content, topic, filename):
     elements.append(Spacer(1, 30))
     footer_table = Table([[Paragraph("Created with Flask + Gemini 2.5 Flash-Lite + ReportLab 🚀", footer_style)]], colWidths=[450])
     footer_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#1976d2')),
-        ('BOX', (0, 0), (-1, -1), 1, colors.HexColor('#0d47a1')),
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#FFFDD2')),
+        ('BOX', (0, 0), (-1, -1), 1, colors.black),
         ('TOPPADDING', (0, 0), (-1, -1), 12),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
     ]))
@@ -105,67 +105,161 @@ HTML_TEMPLATE = '''
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FFFFFF 0%, #FCFBF4 50%, #FFFDD2 100%);
             min-height: 100vh; padding: 20px; display: flex; justify-content: center; align-items: center;
         }
-        .container { max-width: 600px; width: 100%; }
-        .header { text-align: center; color: white; margin-bottom: 40px; }
-        .header h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .subtitle { font-size: 1.1rem; opacity: 0.9; }
-        .form-container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .container { max-width: 650px; width: 100%; }
+        .header { text-align: center; color: #000000; margin-bottom: 40px; }
+        .header h1 { 
+            font-size: 2.5rem; margin-bottom: 10px; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            color: #1a1a1a;
+        }
+        .subtitle { font-size: 1.1rem; color: #333333; }
+        .form-container { 
+            background: #FFFFFF; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            border: 2px solid #FFFDD2;
+        }
         .input-group { margin-bottom: 25px; }
-        .input-group label { display: block; margin-bottom: 10px; font-weight: 600; color: #333; font-size: 1rem; }
-        .input-group input {
-            width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px;
-            font-size: 1rem; transition: all 0.3s ease;
+        .input-group label { 
+            display: block; margin-bottom: 10px; 
+            font-weight: 600; color: #000000; font-size: 1rem; 
         }
-        .input-group input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+        .input-group input, .input-group select {
+            width: 100%; padding: 15px; 
+            border: 2px solid #FFFDD2; 
+            border-radius: 10px;
+            font-size: 1rem; 
+            transition: all 0.3s ease;
+            background: #FCFBF4;
+            color: #000000;
+        }
+        .input-group input:focus, .input-group select:focus { 
+            outline: none; 
+            border-color: #D4AF37; 
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            background: #FFFFFF;
+        }
+        .pages-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .pages-info input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 5px;
+            background: #FFFDD2;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .pages-info input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #D4AF37;
+            cursor: pointer;
+        }
+        .pages-info input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #D4AF37;
+            cursor: pointer;
+            border: none;
+        }
+        .page-count {
+            min-width: 60px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #000000;
+            background: #FFFDD2;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
         .btn-generate {
-            width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600;
-            cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%; padding: 16px; 
+            background: linear-gradient(135deg, #D4AF37 0%, #C9A961 100%);
+            color: #000000; border: none; 
+            border-radius: 10px; font-size: 1.1rem; 
+            font-weight: 600;
+            cursor: pointer; 
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .btn-generate:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(102,126,234,0.4); }
+        .btn-generate:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); 
+        }
         .btn-generate:disabled { opacity: 0.7; cursor: not-allowed; }
         .spinner {
-            display: inline-block; width: 16px; height: 16px; border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%; border-top-color: white; animation: spin 0.8s linear infinite; margin-right: 8px;
+            display: inline-block; width: 16px; height: 16px; 
+            border: 3px solid rgba(0,0,0,0.3);
+            border-radius: 50%; border-top-color: #000000; 
+            animation: spin 0.8s linear infinite; margin-right: 8px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         .result-container, .error-container {
-            margin-top: 30px; background: white; padding: 40px; border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center;
+            margin-top: 30px; background: #FFFFFF; 
+            padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+            text-align: center;
+            border: 2px solid #FFFDD2;
         }
         .success-icon, .error-icon {
             width: 80px; height: 80px; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 20px; color: white;
+            align-items: center; justify-content: center; 
+            font-size: 3rem; margin: 0 auto 20px; color: #000000;
         }
-        .success-icon { background: #4caf50; }
-        .error-icon { background: #f44336; }
-        .success-message h3, .error-message h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .success-message p, .error-message p { margin-bottom: 20px; color: #666; }
+        .success-icon { background: #D4F1D4; border: 3px solid #4caf50; }
+        .error-icon { background: #FFE5E5; border: 3px solid #f44336; }
+        .success-message h3, .error-message h3 { 
+            font-size: 1.5rem; margin-bottom: 10px; color: #000000; 
+        }
+        .success-message p, .error-message p { 
+            margin-bottom: 20px; color: #333333; 
+        }
         .btn-download {
-            padding: 12px 30px; background: #4caf50; color: white; border: none; border-radius: 8px;
-            font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+            padding: 12px 30px; background: #4caf50; 
+            color: #FFFFFF; border: none; border-radius: 8px;
+            font-size: 1rem; font-weight: 600; 
+            cursor: pointer; transition: all 0.3s ease;
         }
-        .btn-download:hover { background: #45a049; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(76,175,80,0.4); }
+        .btn-download:hover { 
+            background: #45a049; transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4); 
+        }
         @media (max-width: 768px) {
             .header h1 { font-size: 2rem; }
             .form-container, .result-container, .error-container { padding: 25px; }
+            .pages-info { flex-direction: column; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>⚡ Gemini 2.5 Flash-Lite PDF Generator</h1>
-            <p class="subtitle">Ultra-fast AI-powered PDF creation</p>
+            <h1>⚡ Gemini PDF Generator</h1>
+            <p class="subtitle">AI-powered PDF creation with custom page length</p>
         </div>
         <div class="form-container">
             <form id="pdfForm">
                 <div class="input-group">
                     <label for="topic">Enter Your Topic or Prompt</label>
                     <input type="text" id="topic" placeholder="e.g., The Future of Artificial Intelligence" required>
+                </div>
+                <div class="input-group">
+                    <label for="pages">Number of Pages (1-25)</label>
+                    <div class="pages-info">
+                        <input type="range" id="pages" name="pages" min="1" max="25" value="5" oninput="updatePageCount(this.value)">
+                        <span class="page-count" id="pageDisplay">5</span>
+                    </div>
                 </div>
                 <button type="submit" id="generateBtn" class="btn-generate">
                     <span class="btn-text">Generate PDF</span>
@@ -190,24 +284,37 @@ HTML_TEMPLATE = '''
         </div>
     </div>
     <script>
+        function updatePageCount(value) {
+            document.getElementById('pageDisplay').textContent = value;
+        }
+
         document.getElementById('pdfForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const topic = document.getElementById('topic').value.trim();
+            const pages = parseInt(document.getElementById('pages').value);
+            
+            if (pages < 1 || pages > 25) {
+                alert('Please select between 1 and 25 pages');
+                return;
+            }
+            
             const generateBtn = document.getElementById('generateBtn');
             const btnText = generateBtn.querySelector('.btn-text');
             const btnLoading = generateBtn.querySelector('.btn-loading');
             const resultDiv = document.getElementById('result');
             const errorDiv = document.getElementById('error');
+            
             resultDiv.style.display = 'none';
             errorDiv.style.display = 'none';
             generateBtn.disabled = true;
             btnText.style.display = 'none';
             btnLoading.style.display = 'inline-block';
+            
             try {
                 const response = await fetch('/generate-pdf', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ topic })
+                    body: JSON.stringify({ topic, pages })
                 });
                 const data = await response.json();
                 if (response.ok) {
@@ -243,9 +350,15 @@ def generate_pdf():
     try:
         data = request.get_json()
         topic = data.get('topic', '').strip()
+        pages = int(data.get('pages', 5))
+        
         if not topic:
             return jsonify({'error': 'Topic is required'}), 400
+        
+        if pages < 1 or pages > 25:
+            return jsonify({'error': 'Pages must be between 1 and 25'}), 400
 
+        word_count = pages * 400
         model = genai.GenerativeModel("gemini-2.5-flash-lite")
         response = model.generate_content(f"""Write a comprehensive, well-structured article about: {topic}
 
@@ -256,18 +369,18 @@ def generate_pdf():
         - Key insights
         - Conclusion
         
-        800-1200 words, professional tone.""")
+        Target length: approximately {word_count} words to fill {pages} page(s). Professional tone.""")
         
         content = response.text
 
         safe_topic = re.sub(r'\W+', '_', topic)[:50]
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"{safe_topic}_{timestamp}.pdf"
+        filename = f"{safe_topic}_{pages}pages_{timestamp}.pdf"
         filepath = os.path.join(OUTPUT_DIR, filename)
 
         create_styled_pdf(content, topic, filepath)
 
-        return jsonify({'success': True, 'message': 'PDF generated successfully!', 'filename': filename})
+        return jsonify({'success': True, 'message': f'{pages}-page PDF generated successfully!', 'filename': filename})
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
